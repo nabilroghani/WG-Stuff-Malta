@@ -1,0 +1,16 @@
+node_modules/
+.env
+.next/
+.vscode/
+.history/
+.DS_Store
+.idea/
+*.db
+.env.example
+next-env.d.ts
+package-lock.json
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+Thumbs.db
+ehthumbs.db

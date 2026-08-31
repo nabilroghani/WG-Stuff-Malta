@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 248 250 252;
+    --foreground: 15 23 42;
+  }
+
+  * {
+    border-color: #E2E8F0;
+  }
+
+  body {
+    background-color: #F8FAFC;
+    color: #0F172A;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+  }
+
+  /* Custom Clean Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #F1F5F9;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #F59E0B;
+  }
+}
+
+@layer utilities {
+  /* Subtle light micro-dot grid */
+  .bg-subtle-grid {
+    background-color: #F8FAFC;
+    background-image: radial-gradient(#E2E8F0 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+  }
+
+  /* Light glassmorphism */
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+  }
+
+  .glass-panel-glow {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    box-shadow: 0 10px 30px -10px rgba(245, 158, 11, 0.15);
+  }
+
+  /* Amber & Red Glow text effects */
+  .text-glow-amber {
+    text-shadow: 0 2px 12px rgba(245, 158, 11, 0.3);
+  }
+
+  .text-glow-red {
+    text-shadow: 0 2px 12px rgba(239, 68, 68, 0.3);
+  }
+}
