@@ -103,7 +103,13 @@ export function CategoryBento() {
             const isWorkStuff = cat.brandTheme === 'work_stuff';
 
             return (
-              <ScrollReveal key={cat.title} index={idx} className={cat.colSpan}>
+              <ScrollReveal
+                key={cat.title}
+                index={idx}
+                direction={idx % 2 === 0 ? 'left' : 'right'}
+                effect="settle"
+                className={cat.colSpan}
+              >
                 <div className="card-glow-animated h-full rounded-3xl p-[1px] border border-slate-200 hover:border-transparent transition-all">
                   <div className="card-glow-inner flex flex-col justify-between overflow-hidden rounded-3xl group min-h-[300px] relative">
                     {/* Background Cinematic Image with Light Overlay */}

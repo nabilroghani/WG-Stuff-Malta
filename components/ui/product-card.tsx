@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Star, ShoppingBag, Eye, Heart, Check, Sparkles } from 'lucide-react';
 import { Product } from '@/types';
 import { formatEUR, cn } from '@/lib/utils';
@@ -14,9 +14,12 @@ import { useUIStore } from '@/lib/store/ui-store';
 interface ProductCardProps {
   product: Product;
   priority?: boolean;
+  /** Used on the home page to stagger premium card entrances. */
+  animationIndex?: number;
 }
 
-export function ProductCard({ product, priority = false }: ProductCardProps) {
+export function ProductCard({ product, priority = false, animationIndex }: ProductCardProps) {
+  const shouldReduceMotion = useReducedMotion();
   const [isAdded, setIsAdded] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
   const { isInWishlist, toggleWishlist } = useWishlistStore();
@@ -51,10 +54,12 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={animationIndex === undefined || shouldReduceMotion
+        ? { opacity: 0, y: 15 }
+        : { opacity: 0, y: 28, scale: 0.94, rotate: animationIndex % 2 === 0 ? -2 : 2 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.35 }}
+      transition={{ duration: 0.5, delay: animationIndex ? animationIndex * 0.055 : 0, ease: [0.16, 1, 0.3, 1] }}
       className="card-glow-animated h-full rounded-3xl p-[1px] border border-slate-200 hover:border-transparent transition-all shadow-studio hover:shadow-studio-hover"
     >
       <div className="card-glow-inner flex flex-col justify-between overflow-hidden rounded-3xl group bg-white">

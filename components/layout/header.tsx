@@ -74,9 +74,9 @@ export function Header() {
   const goodStuffCategories = CATEGORIES.filter((c) => c.brand === 'good_stuff');
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
+    <header className="fixed top-0 left-0 right-0 z-50 px-2 pt-2 sm:px-4">
       {/* Top Notice Bar */}
-      <div className="bg-slate-950 text-slate-300 border-b border-slate-800 text-[11px] font-medium py-1 px-4 sm:px-6">
+      <div className="rounded-t-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 text-slate-300 border border-slate-800/80 text-[11px] font-medium py-1 px-3 sm:px-5 shadow-[0_8px_25px_rgba(15,23,42,0.14)]">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Left Announcement */}
           <div className="flex items-center gap-2">
@@ -110,16 +110,16 @@ export function Header() {
       {/* Main Navigation Bar */}
       <nav
         className={cn(
-          'transition-all duration-300',
+          'rounded-b-2xl transition-all duration-300',
           isScrolled
-            ? 'bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-sm h-16 sm:h-18'
-            : 'bg-white/95 backdrop-blur-md border-b border-slate-200/90 h-16 sm:h-18'
+            ? 'bg-white/95 backdrop-blur-xl border-x border-b border-slate-200 shadow-lg shadow-slate-900/5 h-[3.75rem]'
+            : 'bg-white/90 backdrop-blur-xl border-x border-b border-slate-200/90 shadow-lg shadow-slate-900/[0.04] h-[3.75rem]'
         )}
       >
         <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Brand Logo */}
           <Link href="/" className="flex items-center gap-3 flex-shrink-0 group">
-            <div className="relative h-9 sm:h-11 w-28 sm:w-36 flex items-center">
+            <div className="relative h-9 w-28 sm:w-32 flex items-center">
               <Image
                 src="/logo.webp"
                 alt="WG Stuff Malta Logo"
@@ -131,13 +131,13 @@ export function Header() {
           </Link>
 
           {/* Clean Desktop Navigation Menu Links with Hover Underline */}
-          <div className="hidden lg:flex items-center gap-6 xl:gap-8">
+          <div className="hidden lg:flex items-center gap-1 rounded-full border border-slate-200/80 bg-slate-100/80 p-1">
             {/* 0. Home Link */}
             <Link
               href="/"
               className={cn(
-                'relative py-2 text-xs font-bold uppercase tracking-wider transition-colors group cursor-pointer',
-                pathname === '/' ? 'text-slate-950 font-black' : 'text-slate-600 hover:text-slate-950'
+                'relative rounded-full px-3 py-2 text-[11px] font-bold uppercase tracking-wider transition-all group cursor-pointer',
+                pathname === '/' ? 'bg-white text-slate-950 shadow-sm' : 'text-slate-600 hover:bg-white/80 hover:text-slate-950'
               )}
             >
               <span>Home</span>
@@ -159,10 +159,10 @@ export function Header() {
                 type="button"
                 onClick={() => setActiveDropdown(activeDropdown === 'work_stuff' ? null : 'work_stuff')}
                 className={cn(
-                  'relative py-2 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider transition-colors group cursor-pointer',
+                  'relative flex items-center gap-1.5 rounded-full px-3 py-2 text-[11px] font-bold uppercase tracking-wider transition-all group cursor-pointer',
                   pathname.startsWith('/work-stuff') || activeDropdown === 'work_stuff'
-                    ? 'text-slate-950 font-black'
-                    : 'text-slate-600 hover:text-slate-950'
+                    ? 'bg-white text-slate-950 shadow-sm'
+                    : 'text-slate-600 hover:bg-white/80 hover:text-slate-950'
                 )}
               >
                 <span>Work Stuff Pro</span>
@@ -257,10 +257,10 @@ export function Header() {
                 type="button"
                 onClick={() => setActiveDropdown(activeDropdown === 'good_stuff' ? null : 'good_stuff')}
                 className={cn(
-                  'relative py-2 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider transition-colors group cursor-pointer',
+                  'relative flex items-center gap-1.5 rounded-full px-3 py-2 text-[11px] font-bold uppercase tracking-wider transition-all group cursor-pointer',
                   pathname.startsWith('/good-stuff') || activeDropdown === 'good_stuff'
-                    ? 'text-slate-950 font-black'
-                    : 'text-slate-600 hover:text-slate-950'
+                    ? 'bg-white text-slate-950 shadow-sm'
+                    : 'text-slate-600 hover:bg-white/80 hover:text-slate-950'
                 )}
               >
                 <span>Good Stuff Chemicals</span>
@@ -349,8 +349,8 @@ export function Header() {
             <Link
               href="/gifts"
               className={cn(
-                'relative py-2 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider transition-colors group cursor-pointer',
-                pathname === '/gifts' ? 'text-slate-950 font-black' : 'text-slate-600 hover:text-slate-950'
+                'relative flex items-center gap-1.5 rounded-full px-3 py-2 text-[11px] font-bold uppercase tracking-wider transition-all group cursor-pointer',
+                pathname === '/gifts' ? 'bg-white text-slate-950 shadow-sm' : 'text-slate-600 hover:bg-white/80 hover:text-slate-950'
               )}
             >
               <Gift className="w-3.5 h-3.5 text-amber-500" />
@@ -367,8 +367,8 @@ export function Header() {
             <Link
               href="/about"
               className={cn(
-                'relative py-2 text-xs font-bold uppercase tracking-wider transition-colors group cursor-pointer',
-                pathname === '/about' ? 'text-slate-950 font-black' : 'text-slate-600 hover:text-slate-950'
+                'relative rounded-full px-3 py-2 text-[11px] font-bold uppercase tracking-wider transition-all group cursor-pointer',
+                pathname === '/about' ? 'bg-white text-slate-950 shadow-sm' : 'text-slate-600 hover:bg-white/80 hover:text-slate-950'
               )}
             >
               <span>About</span>
@@ -384,8 +384,8 @@ export function Header() {
             <Link
               href="/contact"
               className={cn(
-                'relative py-2 text-xs font-bold uppercase tracking-wider transition-colors group cursor-pointer',
-                pathname === '/contact' ? 'text-slate-950 font-black' : 'text-slate-600 hover:text-slate-950'
+                'relative rounded-full px-3 py-2 text-[11px] font-bold uppercase tracking-wider transition-all group cursor-pointer',
+                pathname === '/contact' ? 'bg-white text-slate-950 shadow-sm' : 'text-slate-600 hover:bg-white/80 hover:text-slate-950'
               )}
             >
               <span>Contact</span>
@@ -399,13 +399,13 @@ export function Header() {
           </div>
 
           {/* Right Action Buttons */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             {/* Search Pill Button */}
             <button
               type="button"
               onClick={() => setIsSearchOpen(true)}
               aria-label="Search detailing products"
-              className="flex items-center gap-2 h-10 px-3.5 sm:px-4 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-slate-200 text-slate-700 hover:text-slate-950 transition-colors text-xs font-medium cursor-pointer"
+              className="flex items-center gap-2 h-9 px-3 sm:px-3.5 rounded-full bg-slate-100/80 hover:bg-slate-200/80 border border-slate-200 text-slate-700 hover:text-slate-950 transition-colors text-xs font-medium cursor-pointer"
             >
               <Search className="w-4 h-4 text-amber-600" />
               <span className="hidden sm:inline text-xs font-semibold">Search...</span>
@@ -418,7 +418,7 @@ export function Header() {
             <Link
               href="/wishlist"
               aria-label="Wishlist"
-              className="relative flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200/80 border border-slate-200 text-slate-700 hover:text-rose-600 transition-colors shadow-2xs flex-shrink-0"
+              className="relative flex h-9 w-9 items-center justify-center rounded-full bg-slate-100/80 hover:bg-slate-200/80 border border-slate-200 text-slate-700 hover:text-rose-600 transition-colors shadow-2xs flex-shrink-0"
             >
               <Heart className="w-4 h-4" />
               {wishlistCount > 0 && (
@@ -433,7 +433,7 @@ export function Header() {
               type="button"
               onClick={openCart}
               aria-label="Shopping Cart"
-              className="relative flex items-center gap-2 h-10 px-4 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-amber-glow cursor-pointer flex-shrink-0"
+              className="relative flex items-center gap-2 h-9 px-3.5 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-amber-glow cursor-pointer flex-shrink-0"
             >
               <ShoppingBag className="w-4 h-4 stroke-[2.5]" />
               <span className="hidden sm:inline">{formatEUR(cartSubtotal)}</span>
@@ -455,7 +455,7 @@ export function Header() {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Open mobile navigation"
               className={cn(
-                'lg:hidden flex h-10 w-10 items-center justify-center rounded-full border transition-colors cursor-pointer flex-shrink-0',
+                'lg:hidden flex h-9 w-9 items-center justify-center rounded-full border transition-colors cursor-pointer flex-shrink-0',
                 isMobileMenuOpen
                   ? 'bg-slate-900 text-white border-slate-900'
                   : 'bg-slate-100 border-slate-200 text-slate-700 hover:text-slate-950'

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, type Variants } from 'framer-motion';
+import { motion, useReducedMotion, type Variants } from 'framer-motion';
 
 interface ScrollRevealProps {
   children: React.ReactNode;
@@ -14,6 +14,8 @@ interface ScrollRevealProps {
   distance?: number;
   /** Play once vs every time it re-enters the viewport */
   once?: boolean;
+  /** Adds a small premium scale/rotation settle when the element enters view */
+  effect?: 'none' | 'settle';
 }
 
 const OFFSETS: Record<string, { x?: number; y?: number }> = {
@@ -35,21 +37,29 @@ export function ScrollReveal({
   direction = 'up',
   distance,
   once = true,
+  effect = 'none',
 }: ScrollRevealProps) {
+  const shouldReduceMotion = useReducedMotion();
   const offset = OFFSETS[direction];
   const scaled =
     distance !== undefined
       ? Object.fromEntries(Object.entries(offset).map(([k, v]) => [k, v ? Math.sign(v) * distance : v]))
       : offset;
 
+  const settle = effect === 'settle' && !shouldReduceMotion;
   const variants: Variants = {
-    hidden: { opacity: 0, ...scaled },
+    hidden: {
+      opacity: 0,
+      ...scaled,
+      ...(settle ? { scale: 0.92, rotate: direction === 'left' ? -2.5 : 2.5 } : {}),
+    },
     visible: {
       opacity: 1,
       x: 0,
       y: 0,
+      ...(settle ? { scale: 1, rotate: 0 } : {}),
       transition: {
-        duration: 0.6,
+        duration: settle ? 0.72 : 0.6,
         delay: index * 0.08,
         ease: [0.16, 1, 0.3, 1],
       },

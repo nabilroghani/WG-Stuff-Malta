@@ -3,12 +3,13 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { ArrowRight, Sparkles, Gem, Zap, Crown, Shield, Award, Star, Truck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -24,6 +25,8 @@ export function Hero() {
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -60]);
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.03, 0.94]);
   const opacity = useTransform(scrollYProgress, [0, 0.4, 1], [1, 0.9, 0]);
+  const ringRotate = useTransform(scrollYProgress, [0, 1], [0, 110]);
+  const ringRotateReverse = useTransform(scrollYProgress, [0, 1], [0, -75]);
 
   // Slides Data tailored for Light Mode aesthetic
   const slides = [
@@ -100,22 +103,45 @@ export function Hero() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[calc(100vh-4.5rem)] min-h-[500px] max-h-[680px] overflow-hidden bg-gradient-to-b from-[#FDFBF7] via-white to-slate-50 border-b border-slate-200/80 flex items-center justify-center"
+      className="relative w-full h-[calc(100svh-6rem)] min-h-[460px] max-h-[640px] overflow-hidden bg-gradient-to-b from-[#FDFBF7] via-white to-slate-50 border-b border-slate-200/80 flex items-center justify-center"
     >
       {/* Background Ambient Radial Glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[320px] bg-gradient-to-r from-amber-200/40 via-rose-200/25 to-purple-200/30 blur-[120px] pointer-events-none rounded-full" />
+
+      {/* Decorative SVG rings: they drift on scroll, then visually frame the hero card. */}
+      {!shouldReduceMotion && (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+          <motion.svg
+            viewBox="0 0 360 360"
+            style={{ rotate: ringRotate }}
+            className="absolute -right-16 top-1/2 h-[380px] w-[380px] -translate-y-1/2 text-amber-400/35 lg:right-[3%]"
+          >
+            <circle cx="180" cy="180" r="138" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="8 12" />
+            <circle cx="180" cy="180" r="98" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="2 14" />
+            <circle cx="180" cy="180" r="168" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.55" />
+          </motion.svg>
+          <motion.svg
+            viewBox="0 0 260 260"
+            style={{ rotate: ringRotateReverse }}
+            className="absolute -left-24 bottom-[-105px] h-[270px] w-[270px] text-rose-400/25 lg:left-[7%]"
+          >
+            <circle cx="130" cy="130" r="98" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 10" />
+            <circle cx="130" cy="130" r="64" fill="none" stroke="currentColor" strokeWidth="1" />
+          </motion.svg>
+        </div>
+      )}
       
       {/* Subtle Light Micro-Dot Grid */}
       <div className="absolute inset-0 bg-subtle-grid opacity-50 pointer-events-none" />
 
       {/* Main Content Container (Light Luxury Proportions) */}
       <div className="relative h-full w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-center w-full">
 
           {/* Left Column (Light Mode Headline, Value Prop, CTAs, Stats) */}
           <motion.div
             style={{ opacity }}
-            className="lg:col-span-7 space-y-4 sm:space-y-5 relative z-10 text-center sm:text-left"
+            className="lg:col-span-7 space-y-3.5 sm:space-y-4 relative z-10 text-center sm:text-left"
           >
             {/* Top Pill Badge */}
             <motion.div

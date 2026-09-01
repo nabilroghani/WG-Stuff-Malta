@@ -147,3 +147,14 @@
     box-shadow: 0 8px 20px -4px rgba(225, 29, 72, 0.3);
   }
 }
+
+/* Respect visitors who prefer a calmer interface. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -165,6 +165,32 @@ export function DetailingRoutineBuilder() {
           </p>
         </ScrollReveal>
 
+        {/* Animated sequence rail gives the routine a clear visual flow on desktop */}
+        <div className="hidden lg:block relative h-8 mb-2 px-6" aria-hidden="true">
+          <div className="absolute left-[10%] right-[10%] top-3.5 h-px bg-slate-200" />
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true, amount: 0.6 }}
+            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute left-[10%] right-[10%] top-3.5 h-px origin-left bg-gradient-to-r from-amber-400 via-rose-400 to-amber-400"
+          />
+          <div className="relative z-10 grid grid-cols-5">
+            {ROUTINE_STEPS.map((step, idx) => (
+              <motion.span
+                key={step.stepNumber}
+                initial={{ opacity: 0, scale: 0, rotate: -90 }}
+                whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                viewport={{ once: true, amount: 0.6 }}
+                transition={{ delay: 0.16 + idx * 0.12, type: 'spring', stiffness: 230, damping: 16 }}
+                className="justify-self-center flex h-7 w-7 items-center justify-center rounded-full border-4 border-white bg-slate-900 text-[10px] font-bold text-amber-400 shadow-sm"
+              >
+                {step.stepNumber}
+              </motion.span>
+            ))}
+          </div>
+        </div>
+
         {/* 5-Step Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-10">
           {ROUTINE_STEPS.map((step, idx) => {
@@ -175,7 +201,7 @@ export function DetailingRoutineBuilder() {
             const isWorkStuff = step.brand === 'work_stuff';
 
             return (
-              <ScrollReveal key={step.stepNumber} index={idx}>
+              <ScrollReveal key={step.stepNumber} index={idx} effect="settle">
                 <div
                   onClick={() => toggleStep(idx)}
                   className={cn(

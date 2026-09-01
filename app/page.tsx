@@ -2,6 +2,7 @@ import React from 'react';
 import { Hero } from '@/components/home/hero';
 import { BrandSplit } from '@/components/home/brand-split';
 import { CategoryBento } from '@/components/home/category-bento';
+import { CeramicGlossShowcase } from '@/components/home/ceramic-gloss-showcase';
 import { DetailingRoutineBuilder } from '@/components/home/detailing-routine-builder';
 import { FeaturedSection } from '@/components/home/featured-section';
 import { GuideBanner } from '@/components/home/guide-banner';
@@ -14,6 +15,7 @@ export default function HomePage() {
       <Hero />
       <BrandSplit />
       <CategoryBento />
+      <CeramicGlossShowcase />
       <DetailingRoutineBuilder />
       <FeaturedSection />
       <GuideBanner />
