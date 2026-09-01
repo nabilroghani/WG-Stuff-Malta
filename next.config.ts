@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
+  transpilePackages: ['framer-motion', 'lucide-react', 'clsx', 'tailwind-merge'],
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [

@@ -11,6 +11,7 @@ import {
   Truck,
   ShieldCheck,
   Phone,
+  Sparkles,
 } from 'lucide-react';
 import { Product } from '@/types';
 import { useCartStore } from '@/lib/store/cart-store';
@@ -33,6 +34,7 @@ export function ProductActions({ product }: ProductActionsProps) {
   const { isInWishlist, toggleWishlist } = useWishlistStore();
 
   const inWishlist = isInWishlist(product.id);
+  const isWorkStuff = product.brand === 'work_stuff';
 
   const handleAddToCart = () => {
     addItem(product, quantity, selectedSize);
@@ -44,6 +46,9 @@ export function ProductActions({ product }: ProductActionsProps) {
     addItem(product, quantity, selectedSize);
     openDrawer();
   };
+
+  const whatsappMessage = `Hello WG Stuff Malta! I would like to order: ${product.name} (Quantity: ${quantity}${selectedSize ? `, Size: ${selectedSize}` : ''}) for €${(product.price * quantity).toFixed(2)}. Please confirm availability and delivery.`;
+  const whatsappUrl = `https://wa.me/35679080602?text=${encodeURIComponent(whatsappMessage)}`;
 
   return (
     <div className="space-y-6">
@@ -62,8 +67,8 @@ export function ProductActions({ product }: ProductActionsProps) {
                 className={cn(
                   'px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider border transition-all shadow-xs',
                   selectedSize === option
-                    ? product.brand === 'work_stuff'
-                      ? 'bg-amber-500 text-slate-950 border-amber-500 shadow-sm font-black'
+                    ? isWorkStuff
+                      ? 'bg-brand-amber text-slate-950 border-amber-400 shadow-sm font-black'
                       : 'bg-rose-600 text-white border-rose-600 shadow-sm font-black'
                     : 'bg-white text-slate-700 border-slate-200 hover:border-slate-400'
                 )}
@@ -104,10 +109,12 @@ export function ProductActions({ product }: ProductActionsProps) {
           onClick={handleAddToCart}
           disabled={!product.inStock}
           className={cn(
-            'flex-1 flex h-13 items-center justify-center gap-2 px-6 rounded-2xl font-heading font-black text-sm uppercase tracking-wider transition-all duration-200 shadow-amber-glow',
+            'flex-1 flex h-13 items-center justify-center gap-2 px-6 rounded-2xl font-heading font-black text-sm uppercase tracking-wider transition-all duration-200 shadow-lg',
             isAdded
               ? 'bg-emerald-600 text-white'
-              : 'bg-brand-amber text-slate-950 hover:bg-amber-400'
+              : isWorkStuff
+              ? 'bg-brand-amber text-slate-950 hover:bg-amber-400 shadow-amber-glow'
+              : 'bg-rose-600 text-white hover:bg-rose-500 shadow-ruby-glow'
           )}
         >
           <AnimatePresence mode="wait">
@@ -140,7 +147,7 @@ export function ProductActions({ product }: ProductActionsProps) {
           onClick={() => toggleWishlist(product.id)}
           aria-label="Wishlist"
           className={cn(
-            'flex h-13 w-13 items-center justify-center rounded-2xl border transition-all flex-shrink-0 shadow-sm',
+            'flex h-13 w-13 items-center justify-center rounded-2xl border transition-all flex-shrink-0 shadow-xs',
             inWishlist
               ? 'bg-rose-500 text-white border-rose-500'
               : 'bg-white text-slate-700 border-slate-200 hover:text-slate-900 hover:border-slate-400'
@@ -150,14 +157,25 @@ export function ProductActions({ product }: ProductActionsProps) {
         </button>
       </div>
 
-      {/* Buy Now Fast Checkout Button */}
-      <button
-        type="button"
-        onClick={handleBuyNow}
-        className="w-full flex h-12 items-center justify-center gap-2 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200 hover:border-amber-400 text-slate-900 font-heading font-black text-xs uppercase tracking-wider transition-all shadow-sm"
-      >
-        Instant Checkout (Direct to Cart)
-      </button>
+      {/* 1-Click Order via WhatsApp CTA */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <button
+          type="button"
+          onClick={handleBuyNow}
+          className="flex h-12 items-center justify-center gap-2 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200 hover:border-slate-400 text-slate-900 font-heading font-black text-xs uppercase tracking-wider transition-all shadow-xs"
+        >
+          Instant Checkout
+        </button>
+
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex h-12 items-center justify-center gap-2 rounded-2xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-800 font-heading font-bold text-xs uppercase tracking-wider transition-colors shadow-xs"
+        >
+          <Phone className="w-4 h-4 text-emerald-600" /> Order via WhatsApp
+        </a>
+      </div>
 
       {/* Trust & Delivery Guarantees */}
       <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5 text-xs">
@@ -170,18 +188,8 @@ export function ProductActions({ product }: ProductActionsProps) {
           <span>100% Genuine European Import • Official Malta Stockist</span>
         </div>
         <div className="flex items-center gap-2 text-slate-600 font-medium">
-          <Phone className="w-4 h-4 text-emerald-600" />
-          <span>
-            Need application advice?{' '}
-            <a
-              href="https://wa.me/35679080602"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-amber-800 font-bold hover:underline"
-            >
-              WhatsApp +356 7908 0602
-            </a>
-          </span>
+          <Sparkles className="w-4 h-4 text-amber-500" />
+          <span>Dispatched within 24 hours across Malta & Gozo</span>
         </div>
       </div>
     </div>

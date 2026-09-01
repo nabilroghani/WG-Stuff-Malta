@@ -2,6 +2,7 @@ import React from 'react';
 import { Hero } from '@/components/home/hero';
 import { BrandSplit } from '@/components/home/brand-split';
 import { CategoryBento } from '@/components/home/category-bento';
+import { DetailingRoutineBuilder } from '@/components/home/detailing-routine-builder';
 import { FeaturedSection } from '@/components/home/featured-section';
 import { GuideBanner } from '@/components/home/guide-banner';
 import { PartnerHub } from '@/components/home/partner-hub';
@@ -13,6 +14,7 @@ export default function HomePage() {
       <Hero />
       <BrandSplit />
       <CategoryBento />
+      <DetailingRoutineBuilder />
       <FeaturedSection />
       <GuideBanner />
       <PartnerHub />

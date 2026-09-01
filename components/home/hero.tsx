@@ -1,181 +1,308 @@
 'use client';
 
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { ArrowRight, ShieldCheck, Award, Star, Truck } from 'lucide-react';
-import { formatEUR } from '@/lib/utils';
+import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Sparkles, Gem, Zap, Crown, Shield, Award, Star, Truck } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export function Hero() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springX = useSpring(mouseX, { stiffness: 120, damping: 25 });
+  const springY = useSpring(mouseY, { stiffness: 120, damping: 25 });
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.03, 0.94]);
+  const opacity = useTransform(scrollYProgress, [0, 0.4, 1], [1, 0.9, 0]);
+
+  // Slides Data tailored for Light Mode aesthetic
+  const slides = [
+    {
+      id: 1,
+      badge: "Official Malta Stockist",
+      title: "Work Stuff Pro Hardware",
+      subtitle: "Industry-benchmark Albino brushes, 1100 GSM twisted King drying towels, and swirl-free wash pads crafted in Europe.",
+      gradient: "from-amber-600 via-amber-500 to-rose-600",
+      ctaText: "Shop Work Stuff",
+      ctaLink: "/work-stuff",
+      secondaryText: "Good Stuff Range",
+      secondaryLink: "/good-stuff",
+      icon: Gem,
+      tag: "Pro Equipment",
+      image: "/images/home/detailing-brush.jpg",
+      highlight: "67 Tools In Malta"
+    },
+    {
+      id: 2,
+      badge: "High-Gloss Ceramic Chemistry",
+      title: "Good Stuff Car Care",
+      subtitle: "pH-neutral snow foams, SiO2 ceramic detailers, and gentle interior formulas engineered for hyper-slickness and gloss.",
+      gradient: "from-rose-600 via-amber-600 to-orange-500",
+      ctaText: "Shop Chemistry",
+      ctaLink: "/good-stuff",
+      secondaryText: "Gift Sets",
+      secondaryLink: "/gifts",
+      icon: Zap,
+      tag: "Ceramics & Shampoos",
+      image: "/images/home/ceramic-gloss.jpg",
+      highlight: "41 European Formulations"
+    },
+    {
+      id: 3,
+      badge: "Mediterranean Proven System",
+      title: "Swirl-Free Wash Arsenal",
+      subtitle: "Touchless snow foam pre-wash systems formulated specifically for Malta's climate, Sahara dust, and borehole water.",
+      gradient: "from-amber-600 via-rose-600 to-purple-600",
+      ctaText: "Explore Bundles",
+      ctaLink: "/gifts",
+      secondaryText: "Contact Specialist",
+      secondaryLink: "/contact",
+      icon: Crown,
+      tag: "Complete Systems",
+      image: "/images/home/foam-wash.jpg",
+      highlight: "Free Malta Delivery > €50"
+    }
+  ];
+
+  // Auto rotate slides
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % slides.length);
+    }, 5500);
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
+  // Mouse tracking for smooth 3D tilt
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = containerRef.current?.getBoundingClientRect();
+      if (rect) {
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        mouseX.set(x * 40);
+        mouseY.set(y * 40);
+      }
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY]);
+
   return (
-    <section className="relative overflow-hidden pt-6 pb-20 lg:py-24 bg-gradient-to-b from-white via-slate-50 to-slate-100 border-b border-slate-200">
-      {/* Background Subtle Pattern & Ambient Glow */}
-      <div className="absolute inset-0 bg-subtle-grid opacity-70 pointer-events-none" />
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-amber-400/10 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute top-1/3 right-10 w-[400px] h-[300px] bg-rose-400/10 blur-[110px] rounded-full pointer-events-none" />
+    <div
+      ref={containerRef}
+      className="relative w-full h-[calc(100vh-4.5rem)] min-h-[500px] max-h-[680px] overflow-hidden bg-gradient-to-b from-[#FDFBF7] via-white to-slate-50 border-b border-slate-200/80 flex items-center justify-center"
+    >
+      {/* Background Ambient Radial Glow */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[320px] bg-gradient-to-r from-amber-200/40 via-rose-200/25 to-purple-200/30 blur-[120px] pointer-events-none rounded-full" />
+      
+      {/* Subtle Light Micro-Dot Grid */}
+      <div className="absolute inset-0 bg-subtle-grid opacity-50 pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Hero Content */}
+      {/* Main Content Container (Light Luxury Proportions) */}
+      <div className="relative h-full w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center w-full">
+
+          {/* Left Column (Light Mode Headline, Value Prop, CTAs, Stats) */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-7 space-y-6 text-left"
+            style={{ opacity }}
+            className="lg:col-span-7 space-y-4 sm:space-y-5 relative z-10 text-center sm:text-left"
           >
-            {/* Top Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-300 shadow-sm">
-              <span className="flex h-2 w-2 rounded-full bg-amber-500 animate-pulse" />
-              <span className="text-xs font-heading font-bold uppercase tracking-widest text-amber-800">
-                Official Malta Importer • Operating Since 2018
+            {/* Top Pill Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200/90 shadow-2xs"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
+              <span className="text-[10px] sm:text-[11px] font-bold text-slate-800 uppercase tracking-wider">
+                {slides[activeIndex].badge}
               </span>
-            </div>
+            </motion.div>
 
-            {/* Main Headline */}
-            <h1 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-slate-900 leading-[0.95]">
-              PRECISION <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700">
-                DETAILING GEAR
-              </span> <br />
-              BUILT FOR PROS.
-            </h1>
-
-            {/* Subheading */}
-            <p className="text-base sm:text-lg text-slate-600 max-w-xl font-normal leading-relaxed">
-              Europe&apos;s most respected detailing equipment and chemical cosmetics. From ultra-soft
-              Albino brushes and 1100 GSM King drying towels to ceramic SiO2 detailers — imported
-              directly to Malta.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
-              <Link
-                href="/work-stuff"
-                className="flex h-13 px-7 items-center justify-center gap-2 rounded-2xl bg-brand-amber hover:bg-amber-400 text-slate-950 font-heading font-black text-sm uppercase tracking-wider shadow-amber-glow transition-all duration-200"
+            {/* Dynamic Sliding Title (Crisp Dark Text on Light BG) */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeIndex}
+                initial={{ opacity: 0, x: -15 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 15 }}
+                transition={{ duration: 0.35 }}
+                className="space-y-2"
               >
-                Explore Work Stuff Pro <ArrowRight className="w-4 h-4" />
+                <h1 className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight leading-[1.12]">
+                  Experience{' '}
+                  <span className={cn(
+                    "bg-gradient-to-r text-transparent bg-clip-text block sm:inline",
+                    slides[activeIndex].gradient
+                  )}>
+                    {slides[activeIndex].title}
+                  </span>
+                </h1>
+                <p className="text-xs sm:text-sm text-slate-600 max-w-lg font-normal leading-relaxed">
+                  {slides[activeIndex].subtitle}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 pt-1"
+            >
+              <Link
+                href={slides[activeIndex].ctaLink}
+                className="group relative px-6 py-2.5 sm:px-7 sm:py-3 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs uppercase tracking-wider overflow-hidden transition-all duration-200 shadow-amber-glow flex items-center gap-2 cursor-pointer"
+              >
+                <span>{slides[activeIndex].ctaText}</span>
+                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
               </Link>
 
               <Link
-                href="/good-stuff"
-                className="flex h-13 px-7 items-center justify-center gap-2 rounded-2xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 hover:text-rose-600 font-heading font-black text-sm uppercase tracking-wider shadow-sm transition-all duration-200"
+                href={slides[activeIndex].secondaryLink}
+                className="px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-200/90 text-slate-800 font-semibold text-xs uppercase tracking-wider transition-colors shadow-2xs cursor-pointer"
               >
-                Shop Good Stuff Chemicals
+                {slides[activeIndex].secondaryText}
               </Link>
-            </div>
+            </motion.div>
 
-            {/* Trust Points Ticker */}
-            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200">
-              <div>
-                <span className="font-heading text-2xl sm:text-3xl font-black text-slate-900 block">
-                  100%
-                </span>
-                <span className="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">
-                  Genuine EU Import
-                </span>
+            {/* Malta Trust Row */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              className="flex flex-wrap items-center justify-center sm:justify-start gap-5 sm:gap-7 pt-3.5 border-t border-slate-200 text-xs text-slate-600"
+            >
+              <div className="flex items-center gap-2">
+                <Truck className="w-4 h-4 text-amber-600" />
+                <div>
+                  <span className="font-bold text-slate-900 text-xs block">Free Island Delivery</span>
+                  <span className="text-[10px] text-slate-500">Over €50 across Malta</span>
+                </div>
               </div>
 
-              <div>
-                <span className="font-heading text-2xl sm:text-3xl font-black text-amber-600 block">
-                  1100 GSM
-                </span>
-                <span className="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">
-                  Twisted Pile Towels
-                </span>
+              <div className="flex items-center gap-2">
+                <Shield className="w-4 h-4 text-emerald-600" />
+                <div>
+                  <span className="font-bold text-slate-900 text-xs block">100% Genuine Import</span>
+                  <span className="text-[10px] text-slate-500">Direct European Stockist</span>
+                </div>
               </div>
 
-              <div>
-                <span className="font-heading text-2xl sm:text-3xl font-black text-emerald-600 block">
-                  FREE
-                </span>
-                <span className="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">
-                  Malta Delivery Over €50
-                </span>
+              <div className="flex items-center gap-2">
+                <Star className="w-4 h-4 text-amber-500 fill-amber-400" />
+                <div>
+                  <span className="font-bold text-slate-900 text-xs block">4.98 / 5.0 Rating</span>
+                  <span className="text-[10px] text-slate-500">Trusted in Malta Studios</span>
+                </div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
 
-          {/* Right Hero Visual Showcase Card */}
+          {/* Right Column (Light Luxury 3D Studio Showcase Card) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="lg:col-span-5 relative"
+            className="hidden lg:flex lg:col-span-5 justify-center items-center"
+            style={{
+              y: y1,
+              scale,
+            }}
           >
-            <div className="relative rounded-3xl bg-white border border-slate-200 p-3 shadow-xl overflow-hidden group">
-              {/* Highlight Image */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-100 border border-slate-100">
-                <Image
-                  src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=1200&q=85"
-                  alt="Work Stuff King Drying Towel Detailing"
-                  fill
-                  priority
-                  className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                />
+            <motion.div
+              style={{
+                rotateX: useTransform(springY, [-40, 40], [6, -6]),
+                rotateY: useTransform(springX, [-40, 40], [-6, 6]),
+              }}
+              className="relative w-full max-w-[340px] xl:max-w-[370px] aspect-[4/3] sm:aspect-square"
+            >
+              {/* Outer Subtle Golden Ring */}
+              <div className="absolute -inset-2.5 rounded-3xl border border-amber-300/40 pointer-events-none" />
 
-                {/* Floating Pro Badge */}
-                <div className="absolute top-4 left-4 backdrop-blur-md bg-white/90 px-3 py-1 rounded-full border border-amber-300 shadow-sm flex items-center gap-1.5">
-                  <Award className="w-3.5 h-3.5 text-amber-600" />
-                  <span className="text-[11px] font-heading font-black uppercase tracking-wider text-amber-900">
-                    Flagship Equipment
-                  </span>
-                </div>
-              </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeIndex}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4 }}
+                  className="relative w-full h-full bg-white rounded-3xl border border-slate-200/90 p-3.5 shadow-xl overflow-hidden flex flex-col justify-between"
+                >
+                  {/* Card Media Stage */}
+                  <div className="relative w-full h-[74%] rounded-2xl overflow-hidden bg-slate-100">
+                    <Image
+                      src={slides[activeIndex].image}
+                      alt={slides[activeIndex].title}
+                      fill
+                      priority
+                      className="object-cover transition-transform duration-700 hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
 
-              {/* Bottom Card Preview */}
-              <div className="p-4 sm:p-5">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-amber-700">
-                    Work Stuff Pro Line
-                  </span>
-                  <div className="flex items-center gap-1 text-amber-600 text-xs font-bold">
-                    <Star className="w-3.5 h-3.5 fill-current text-amber-500" />
-                    <span>5.0 (52 reviews)</span>
-                  </div>
-                </div>
+                    {/* Floating Brand Badge */}
+                    <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-950/80 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold">
+                      {React.createElement(slides[activeIndex].icon, {
+                        className: "w-3 h-3 text-amber-400"
+                      })}
+                      <span>{slides[activeIndex].tag}</span>
+                    </div>
 
-                <h3 className="font-heading text-xl font-black uppercase text-slate-900 leading-tight mb-1">
-                  KING Twisted Pile Drying Towel (1100 GSM)
-                </h3>
-                <p className="text-xs text-slate-500 line-clamp-2 mb-4 leading-relaxed">
-                  The monster 90x73cm Korean microfiber towel that dries entire vehicles in seconds
-                  with zero swirls or streaks.
-                </p>
-
-                <div className="flex items-center justify-between pt-3 border-t border-slate-100">
-                  <div>
-                    <span className="font-heading text-2xl font-black text-slate-900">
-                      {formatEUR(24.90)}
-                    </span>
-                    <span className="text-xs text-slate-400 ml-2 line-through font-semibold">
-                      {formatEUR(28.00)}
-                    </span>
+                    <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-white text-xs font-semibold">
+                      <span className="text-amber-300 font-bold text-[11px]">{slides[activeIndex].highlight}</span>
+                    </div>
                   </div>
 
-                  <Link
-                    href="/product/work-stuff-king-drying-towel"
-                    className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-800 text-xs font-bold uppercase tracking-wider transition-colors shadow-xs"
-                  >
-                    View Product <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </div>
-            </div>
+                  {/* Card Bottom Quick Link */}
+                  <div className="p-1.5 flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">
+                        Featured Collection
+                      </span>
+                      <span className="font-heading font-bold text-xs sm:text-sm text-slate-900">
+                        {slides[activeIndex].title}
+                      </span>
+                    </div>
 
-            {/* Small Floating Assurance Pill */}
-            <div className="hidden sm:flex absolute -bottom-6 -left-6 items-center gap-3 p-3.5 rounded-2xl bg-white border border-slate-200 shadow-xl">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <div className="text-left">
-                <span className="block text-xs font-bold text-slate-900 uppercase">In Stock in Malta</span>
-                <span className="text-[11px] text-slate-500">Same / Next Day Island Dispatch</span>
-              </div>
-            </div>
+                    <Link
+                      href={slides[activeIndex].ctaLink}
+                      className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 transition-colors shadow-sm"
+                    >
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </motion.div>
           </motion.div>
         </div>
       </div>
-    </section>
+
+      {/* Slide Navigation Dots (Bottom Centered) */}
+      <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setActiveIndex(index)}
+            aria-label={`Go to slide ${index + 1}`}
+            className={cn(
+              "h-1.5 rounded-full transition-all duration-300 cursor-pointer",
+              activeIndex === index
+                ? "w-7 bg-amber-500"
+                : "w-1.5 bg-slate-300 hover:bg-slate-400"
+            )}
+          />
+        ))}
+      </div>
+    </div>
   );
 }

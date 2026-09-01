@@ -1,5 +1,6 @@
 import React from 'react';
 import { MapPin, Phone, Sparkles } from 'lucide-react';
+import { ScrollReveal } from '@/components/ui/scroll-reveal';
 
 export function PartnerHub() {
   return (
@@ -11,7 +12,7 @@ export function PartnerHub() {
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             {/* Left Content */}
-            <div className="lg:col-span-6 space-y-5">
+            <ScrollReveal direction="left" className="lg:col-span-6 space-y-5">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-300 text-amber-800 text-xs font-heading font-black uppercase tracking-wider shadow-xs">
                 <Sparkles className="w-3.5 h-3.5 text-amber-600" /> Malta Partner Stockists & Studios
               </div>
@@ -36,10 +37,10 @@ export function PartnerHub() {
                   <Phone className="w-4 h-4" /> Message on WhatsApp (+356 7908 0602)
                 </a>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Right Location Cards */}
-            <div className="lg:col-span-6 space-y-4">
+            <ScrollReveal direction="right" index={1} className="lg:col-span-6 space-y-4">
               {/* Location 1: Ta' Spiru Car Wash */}
               <div className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-amber-400 transition-all group shadow-xs hover:shadow-md">
                 <div className="flex items-start justify-between">
@@ -91,7 +92,7 @@ export function PartnerHub() {
                   Stuff maintenance chemicals at The Quad Central business hub.
                 </p>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </div>

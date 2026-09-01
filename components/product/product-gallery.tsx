@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Maximize2 } from 'lucide-react';
+import { Maximize2, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ProductGalleryProps {
@@ -18,18 +18,18 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
   const currentImage =
     images[selectedIndex] ||
     images[0] ||
-    'https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=1000&q=85';
+    'https://static.wixstatic.com/media/f0347b_8d46a8fe1c904ed19fcdce9b09bb20dc~mv2.png';
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Main Large Image Display */}
-      <div className="relative aspect-square w-full overflow-hidden rounded-3xl bg-white border border-slate-200 group shadow-sm">
+      {/* Main Large Image Display (Uncropped, studio lighting) */}
+      <div className="relative aspect-square w-full overflow-hidden rounded-3xl bg-gradient-to-b from-slate-50 via-slate-50/40 to-white border border-slate-200 group shadow-studio p-8 flex items-center justify-center">
         <motion.div
           key={selectedIndex}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
-          className="relative h-full w-full bg-slate-100"
+          className="relative h-full w-full flex items-center justify-center"
         >
           <Image
             src={currentImage}
@@ -38,7 +38,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
             priority
             sizes="(max-width: 768px) 100vw, 50vw"
             className={cn(
-              'object-cover object-center transition-transform duration-500',
+              'object-contain object-center drop-shadow-2xl transition-transform duration-500',
               isZoomed ? 'scale-150 cursor-zoom-out' : 'cursor-zoom-in group-hover:scale-105'
             )}
             onClick={() => setIsZoomed(!isZoomed)}
@@ -49,7 +49,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
         <button
           onClick={() => setIsZoomed(!isZoomed)}
           aria-label="Toggle zoom"
-          className="absolute bottom-4 right-4 flex h-9 w-9 items-center justify-center rounded-xl bg-white/90 backdrop-blur-md border border-slate-200 text-slate-700 hover:text-amber-600 transition-colors shadow-sm"
+          className="absolute bottom-4 right-4 flex h-9 w-9 items-center justify-center rounded-xl bg-white/90 backdrop-blur-md border border-slate-200 text-slate-700 hover:text-amber-600 transition-colors shadow-xs"
         >
           <Maximize2 className="h-4 w-4" />
         </button>
@@ -66,13 +66,13 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
                 setIsZoomed(false);
               }}
               className={cn(
-                'relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl border-2 transition-all shadow-xs',
+                'relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl border-2 p-2 bg-white transition-all shadow-xs flex items-center justify-center',
                 selectedIndex === idx
                   ? 'border-amber-500 shadow-sm scale-95'
                   : 'border-slate-200 hover:border-slate-400 opacity-70 hover:opacity-100'
               )}
             >
-              <Image src={img} alt={`thumbnail ${idx + 1}`} fill className="object-cover" />
+              <Image src={img} alt={`thumbnail ${idx + 1}`} fill className="object-contain p-1" />
             </button>
           ))}
         </div>

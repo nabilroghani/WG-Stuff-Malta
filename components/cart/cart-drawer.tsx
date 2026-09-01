@@ -15,6 +15,7 @@ import {
   ShieldCheck,
   Sparkles,
   Loader2,
+  Phone,
 } from 'lucide-react';
 import { useCartStore, FREE_SHIPPING_THRESHOLD } from '@/lib/store/cart-store';
 import { formatEUR, cn } from '@/lib/utils';
@@ -64,6 +65,12 @@ export function CartDrawer() {
     }
   };
 
+  // Build WhatsApp order text
+  const itemsListText = items
+    .map((item) => `- ${item.product.name} (x${item.quantity}) = €${(item.product.price * item.quantity).toFixed(2)}`)
+    .join('%0A');
+  const whatsappUrl = `https://wa.me/35679080602?text=Hello%20WG%20Stuff%20Malta!%20I%20would%20like%20to%20place%20an%20order:%0A%0A${itemsListText}%0A%0ASubtotal:%20€${subtotal.toFixed(2)}%0ATotal:%20€${total.toFixed(2)}%0A%0APlease%20confirm%20delivery%20details.`;
+
   return (
     <AnimatePresence>
       {isDrawerOpen && (
@@ -74,7 +81,7 @@ export function CartDrawer() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeDrawer}
-            className="absolute inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity"
+            className="absolute inset-0 bg-slate-950/60 backdrop-blur-xs transition-opacity"
           />
 
           <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
@@ -133,7 +140,7 @@ export function CartDrawer() {
                       'h-full transition-all duration-500 rounded-full',
                       progress.isEligible
                         ? 'bg-emerald-500'
-                        : 'bg-gold-gradient'
+                        : 'bg-gradient-to-r from-amber-400 to-amber-500'
                     )}
                     style={{ width: `${progress.percentage}%` }}
                   />
@@ -170,16 +177,16 @@ export function CartDrawer() {
                       exit={{ opacity: 0, x: -20 }}
                       className="flex gap-4 p-3.5 rounded-2xl bg-white border border-slate-200 group shadow-sm"
                     >
-                      {/* Product Image */}
-                      <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100 border border-slate-200">
+                      {/* Product Uncropped Thumbnail */}
+                      <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-gradient-to-b from-slate-50 to-white border border-slate-200 p-2 flex items-center justify-center">
                         <Image
                           src={
                             item.product.images[0] ||
-                            'https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80'
+                            'https://static.wixstatic.com/media/f0347b_8d46a8fe1c904ed19fcdce9b09bb20dc~mv2.png'
                           }
                           alt={item.product.name}
                           fill
-                          className="object-cover object-center"
+                          className="object-contain p-1 drop-shadow-xs"
                         />
                       </div>
 
@@ -241,9 +248,9 @@ export function CartDrawer() {
 
               {/* Drawer Footer & Checkout Action */}
               {items.length > 0 && (
-                <div className="p-6 border-t border-slate-200 bg-white space-y-4">
+                <div className="p-6 border-t border-slate-200 bg-white space-y-3">
                   {/* Totals Breakdown */}
-                  <div className="space-y-2 text-xs">
+                  <div className="space-y-1.5 text-xs">
                     <div className="flex justify-between text-slate-500">
                       <span>Subtotal</span>
                       <span className="text-slate-900 font-semibold">{formatEUR(subtotal)}</span>
@@ -268,11 +275,11 @@ export function CartDrawer() {
                     </div>
                   </div>
 
-                  {/* Checkout Button */}
+                  {/* Stripe Checkout Button */}
                   <button
                     onClick={handleCheckout}
                     disabled={isLoadingCheckout}
-                    className="w-full flex h-12 items-center justify-center gap-2 rounded-xl bg-brand-amber hover:bg-amber-400 text-slate-950 font-heading font-black text-sm uppercase tracking-wider shadow-amber-glow transition-all duration-200 disabled:opacity-50"
+                    className="w-full flex h-12 items-center justify-center gap-2 rounded-xl bg-brand-amber hover:bg-amber-400 text-slate-950 font-heading font-black text-xs sm:text-sm uppercase tracking-wider shadow-amber-glow transition-all duration-200 disabled:opacity-50"
                   >
                     {isLoadingCheckout ? (
                       <>
@@ -280,26 +287,25 @@ export function CartDrawer() {
                       </>
                     ) : (
                       <>
-                        Checkout with Stripe <ArrowRight className="w-4 h-4" />
+                        Checkout with Card / Stripe <ArrowRight className="w-4 h-4" />
                       </>
                     )}
                   </button>
 
-                  {/* View Cart Page Link */}
-                  <div className="text-center">
-                    <Link
-                      href="/cart"
-                      onClick={closeDrawer}
-                      className="text-xs text-slate-600 hover:text-amber-700 transition-colors font-semibold underline underline-offset-4"
-                    >
-                      View Detailed Cart Page
-                    </Link>
-                  </div>
+                  {/* WhatsApp Quick Order for Malta */}
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full flex h-11 items-center justify-center gap-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-800 font-heading font-bold text-xs uppercase tracking-wider transition-colors"
+                  >
+                    <Phone className="w-3.5 h-3.5 text-emerald-600" /> Order via WhatsApp (Malta)
+                  </a>
 
                   {/* Trust Badge */}
                   <div className="flex items-center justify-center gap-2 text-[11px] text-slate-500 pt-1">
                     <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>256-Bit Encrypted Stripe Checkout • Malta (EUR €)</span>
+                    <span>Official WG Stuff Malta Store • Fast Dispatch</span>
                   </div>
                 </div>
               )}

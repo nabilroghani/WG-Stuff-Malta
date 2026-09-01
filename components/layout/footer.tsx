@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Phone,
   Mail,
@@ -17,65 +18,65 @@ export function Footer() {
   const goodStuffCats = CATEGORIES.filter((c) => c.brand === 'good_stuff');
 
   return (
-    <footer className="bg-white border-t border-slate-200 pt-16 pb-12 text-slate-600">
+    <footer className="bg-slate-950 border-t border-slate-800/80 pt-16 pb-12 text-slate-400">
       {/* Top Value Assurance Banner */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 border-b border-slate-200">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 border-b border-slate-800/80">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Feature 1 */}
-          <div className="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
-            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-amber-100 border border-amber-200 text-amber-700">
-              <Truck className="h-6 w-6" />
+          <div className="flex items-start gap-4 p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80">
+            <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-amber-400/10 border border-amber-400/20 text-amber-400">
+              <Truck className="h-5 w-5" />
             </div>
             <div>
-              <h4 className="font-heading font-black text-sm uppercase tracking-wider text-slate-900">
+              <h4 className="font-bold text-sm text-white">
                 Malta Island Delivery
               </h4>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+              <p className="text-xs text-slate-400 mt-1 leading-relaxed">
                 Free delivery on all orders over €50 across Malta & Gozo (24-48h).
               </p>
             </div>
           </div>
 
           {/* Feature 2 */}
-          <div className="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
-            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-amber-100 border border-amber-200 text-amber-700">
-              <Award className="h-6 w-6" />
+          <div className="flex items-start gap-4 p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80">
+            <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-amber-400/10 border border-amber-400/20 text-amber-400">
+              <Award className="h-5 w-5" />
             </div>
             <div>
-              <h4 className="font-heading font-black text-sm uppercase tracking-wider text-slate-900">
+              <h4 className="font-bold text-sm text-white">
                 100% Genuine Gear
               </h4>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+              <p className="text-xs text-slate-400 mt-1 leading-relaxed">
                 Direct authorized importer of Work Stuff & Good Stuff in Malta since 2018.
               </p>
             </div>
           </div>
 
           {/* Feature 3 */}
-          <div className="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
-            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-amber-100 border border-amber-200 text-amber-700">
-              <ShieldCheck className="h-6 w-6" />
+          <div className="flex items-start gap-4 p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80">
+            <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-amber-400/10 border border-amber-400/20 text-amber-400">
+              <ShieldCheck className="h-5 w-5" />
             </div>
             <div>
-              <h4 className="font-heading font-black text-sm uppercase tracking-wider text-slate-900">
+              <h4 className="font-bold text-sm text-white">
                 Secure Stripe Checkout
               </h4>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+              <p className="text-xs text-slate-400 mt-1 leading-relaxed">
                 Encrypted online payments in EUR (€) with Visa, Mastercard, Apple Pay.
               </p>
             </div>
           </div>
 
           {/* Feature 4 */}
-          <div className="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
-            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-amber-100 border border-amber-200 text-amber-700">
-              <Sparkles className="h-6 w-6" />
+          <div className="flex items-start gap-4 p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80">
+            <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-amber-400/10 border border-amber-400/20 text-amber-400">
+              <Sparkles className="h-5 w-5" />
             </div>
             <div>
-              <h4 className="font-heading font-black text-sm uppercase tracking-wider text-slate-900">
+              <h4 className="font-bold text-sm text-white">
                 Pro Detailing Advice
               </h4>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+              <p className="text-xs text-slate-400 mt-1 leading-relaxed">
                 Direct WhatsApp consultation with our detailing specialists (+356 7908 0602).
               </p>
             </div>
@@ -89,170 +90,142 @@ export function Footer() {
           {/* Brand Info Column */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-amber-400 to-amber-500 text-slate-950 font-heading font-black text-xl shadow-md">
-                WG
-              </div>
-              <div>
-                <span className="font-heading text-xl font-black tracking-tight text-slate-900 uppercase">
-                  WG STUFF MALTA
-                </span>
-                <span className="block text-[10px] text-slate-500 uppercase tracking-wider font-bold">
-                  Work Stuff & Good Stuff Official Importer
-                </span>
+              <div className="relative h-10 w-36 flex items-center">
+                <Image
+                  src="/logo.webp"
+                  alt="WG Stuff Malta Logo"
+                  fill
+                  className="object-contain object-left"
+                />
               </div>
             </div>
 
-            <p className="text-xs text-slate-500 leading-relaxed max-w-sm">
-              Providing professional automotive detailers and passionate enthusiasts in Malta with
-              Europe&apos;s highest-grade detailing equipment, plush Korean microfibers, and chemical
-              cosmetics since 2018.
+            <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
+              Official Malta importer and distributor for <span className="text-amber-400 font-semibold">Work Stuff</span> professional detailing gear and <span className="text-rose-400 font-semibold">Good Stuff</span> high-gloss automotive chemistry. Serving studios, valeters, and passionate enthusiasts across Malta & Gozo.
             </p>
 
-            {/* Direct Contact List */}
-            <div className="space-y-2 pt-2 text-xs">
+            <div className="pt-2 flex flex-col gap-2 text-xs">
               <a
                 href="https://wa.me/35679080602"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2.5 text-slate-800 hover:text-emerald-700 transition-colors font-bold"
+                className="flex items-center gap-2 text-emerald-400 hover:text-emerald-300 font-semibold transition-colors"
               >
-                <Phone className="w-4 h-4 text-emerald-600" />
-                <span>+356 7908 0602 (Phone & WhatsApp)</span>
+                <Phone className="w-3.5 h-3.5" /> +356 7908 0602 (WhatsApp Direct)
               </a>
               <a
                 href="mailto:workstuffmalta@gmail.com"
-                className="flex items-center gap-2.5 text-slate-800 hover:text-amber-700 transition-colors font-medium"
+                className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors"
               >
-                <Mail className="w-4 h-4 text-amber-600" />
-                <span>workstuffmalta@gmail.com</span>
+                <Mail className="w-3.5 h-3.5 text-amber-400" /> workstuffmalta@gmail.com
               </a>
-            </div>
-
-            {/* Social Channels */}
-            <div className="pt-3">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block mb-2">
-                Follow WG Stuff Malta:
-              </span>
-              <div className="flex items-center gap-2">
-                {[
-                  { name: 'Instagram', url: 'https://instagram.com' },
-                  { name: 'Facebook', url: 'https://facebook.com' },
-                  { name: 'TikTok', url: 'https://tiktok.com' },
-                  { name: 'YouTube', url: 'https://youtube.com' },
-                ].map((soc) => (
-                  <a
-                    key={soc.name}
-                    href={soc.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-1.5 rounded-lg bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700 hover:text-slate-950 hover:bg-slate-200 transition-colors"
-                  >
-                    {soc.name}
-                  </a>
-                ))}
+              <div className="flex items-center gap-2 text-slate-400">
+                <MapPin className="w-3.5 h-3.5 text-amber-400" /> Malta & Gozo Island-Wide Dispatch
               </div>
             </div>
           </div>
 
-          {/* Work Stuff Column */}
+          {/* Work Stuff Hardware Column */}
           <div className="space-y-3">
-            <h4 className="font-heading font-black text-sm uppercase tracking-wider text-amber-700">
+            <h5 className="font-bold text-xs uppercase tracking-wider text-amber-400">
               Work Stuff Pro
-            </h4>
+            </h5>
             <ul className="space-y-2 text-xs">
               {workStuffCats.map((cat) => (
                 <li key={cat.slug}>
                   <Link
                     href={`/work-stuff/${cat.slug}`}
-                    className="text-slate-600 hover:text-amber-700 transition-colors font-medium"
+                    className="hover:text-amber-300 transition-colors flex items-center justify-between group"
                   >
-                    {cat.name}
+                    <span>{cat.name}</span>
+                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </Link>
                 </li>
               ))}
-              <li>
+              <li className="pt-1">
                 <Link
                   href="/work-stuff"
-                  className="text-amber-700 font-bold hover:underline inline-flex items-center gap-1"
+                  className="text-amber-400 hover:text-amber-300 font-semibold inline-flex items-center gap-1"
                 >
-                  All Work Stuff Gear <ArrowUpRight className="w-3 h-3" />
+                  All 67 Equipment →
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Good Stuff Column */}
+          {/* Good Stuff Chemicals Column */}
           <div className="space-y-3">
-            <h4 className="font-heading font-black text-sm uppercase tracking-wider text-rose-700">
+            <h5 className="font-bold text-xs uppercase tracking-wider text-rose-400">
               Good Stuff Care
-            </h4>
+            </h5>
             <ul className="space-y-2 text-xs">
               {goodStuffCats.map((cat) => (
                 <li key={cat.slug}>
                   <Link
                     href={`/good-stuff/${cat.slug}`}
-                    className="text-slate-600 hover:text-rose-700 transition-colors font-medium"
+                    className="hover:text-rose-300 transition-colors flex items-center justify-between group"
                   >
-                    {cat.name}
+                    <span>{cat.name}</span>
+                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </Link>
                 </li>
               ))}
-              <li>
+              <li className="pt-1">
                 <Link
                   href="/good-stuff"
-                  className="text-rose-700 font-bold hover:underline inline-flex items-center gap-1"
+                  className="text-rose-400 hover:text-rose-300 font-semibold inline-flex items-center gap-1"
                 >
-                  All Chemicals <ArrowUpRight className="w-3 h-3" />
+                  All 41 Chemicals →
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Malta Partner Stockists & Info */}
+          {/* Quick Links & Service Column */}
           <div className="space-y-3">
-            <h4 className="font-heading font-black text-sm uppercase tracking-wider text-slate-900">
-              Malta Partner Hubs
-            </h4>
-            <div className="space-y-3 text-xs">
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-                <div className="flex items-center gap-1.5 text-slate-900 font-bold mb-0.5">
-                  <MapPin className="w-3.5 h-3.5 text-amber-600" /> Ta&apos; Spiru Car Wash
-                </div>
-                <p className="text-[11px] text-slate-500">Fgura, Malta</p>
-                <span className="text-[10px] text-amber-700 font-bold">
-                  Official Retailer & Pro Studio
-                </span>
-              </div>
-
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-                <div className="flex items-center gap-1.5 text-slate-900 font-bold mb-0.5">
-                  <MapPin className="w-3.5 h-3.5 text-amber-600" /> Quad Car Wash
-                </div>
-                <p className="text-[11px] text-slate-500">The Quad Central, Mrieħel</p>
-                <span className="text-[10px] text-amber-700 font-bold">
-                  Selected Stock Available
-                </span>
-              </div>
-            </div>
+            <h5 className="font-bold text-xs uppercase tracking-wider text-slate-200">
+              Customer Hub
+            </h5>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <Link href="/gifts" className="hover:text-white transition-colors">
+                  Gift Sets & Bundles
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-white transition-colors">
+                  About WG Stuff Malta
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-white transition-colors">
+                  Contact & Pickups
+                </Link>
+              </li>
+              <li>
+                <Link href="/cart" className="hover:text-white transition-colors">
+                  Shopping Cart
+                </Link>
+              </li>
+              <li>
+                <Link href="/wishlist" className="hover:text-white transition-colors">
+                  My Wishlist
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
 
-      {/* Copyright & Bottom Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-        <p>© {new Date().getFullYear()} WG Stuff Malta. All rights reserved.</p>
-        <div className="flex items-center gap-4">
-          <Link href="/about" className="hover:text-slate-900 transition-colors">
-            About Us
-          </Link>
-          <Link href="/contact" className="hover:text-slate-900 transition-colors">
-            Contact
-          </Link>
-          <Link href="/gifts" className="hover:text-slate-900 transition-colors">
-            Gift Bundles
-          </Link>
-          <span className="text-slate-300">•</span>
-          <span className="text-slate-700 font-bold">Currency: EUR (€)</span>
+      {/* Bottom Legal & Payment Bar */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
+        <p>© {new Date().getFullYear()} WG Stuff Malta. Official Work Stuff & Good Stuff Importer. All rights reserved.</p>
+        <div className="flex items-center gap-4 text-slate-400">
+          <span>Stripe 256-Bit Encrypted</span>
+          <span>•</span>
+          <span>Malta (EUR €)</span>
+          <span>•</span>
+          <span>Fast Island Dispatch</span>
         </div>
       </div>
     </footer>
