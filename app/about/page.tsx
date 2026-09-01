@@ -9,6 +9,8 @@ import {
   Sparkles,
   MapPin,
 } from 'lucide-react';
+import { ScrollDrawnCurve } from '@/components/about/scroll-drawn-curve';
+import { ScrollReveal } from '@/components/ui/scroll-reveal';
 
 export const metadata: Metadata = {
   title: 'About WG Stuff Malta | Official Work Stuff & Good Stuff Importer',
@@ -18,10 +20,11 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="py-12 bg-slate-50 min-h-screen text-slate-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+    <div className="relative overflow-hidden py-12 bg-slate-50 min-h-screen text-slate-900">
+      <ScrollDrawnCurve />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         {/* Top Story Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <ScrollReveal effect="settle" className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7 space-y-5">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-50 border border-amber-300 text-amber-800 text-xs font-heading font-black uppercase tracking-wider shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-amber-600" /> Operating in Malta Since 2018
@@ -57,11 +60,11 @@ export default function AboutPage() {
               />
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* 4 Pillars of Excellence */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-3 shadow-sm">
+          <ScrollReveal index={0} effect="settle" className="p-6 rounded-2xl bg-white border border-slate-200 space-y-3 shadow-sm">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-100 border border-amber-200 text-amber-700">
               <Award className="w-6 h-6" />
             </div>
@@ -72,9 +75,9 @@ export default function AboutPage() {
               Direct factory shipments from European manufacturing facilities. Every single towel,
               brush, and bottle is authentic.
             </p>
-          </div>
+          </ScrollReveal>
 
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-3 shadow-sm">
+          <ScrollReveal index={1} effect="settle" className="p-6 rounded-2xl bg-white border border-slate-200 space-y-3 shadow-sm">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-100 border border-amber-200 text-amber-700">
               <Sparkles className="w-6 h-6" />
             </div>
@@ -85,9 +88,9 @@ export default function AboutPage() {
               Formulas like Sour Shampoo (acidic pH) designed specifically to dissolve local tap
               water limescale and water spots.
             </p>
-          </div>
+          </ScrollReveal>
 
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-3 shadow-sm">
+          <ScrollReveal index={2} effect="settle" className="p-6 rounded-2xl bg-white border border-slate-200 space-y-3 shadow-sm">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-100 border border-amber-200 text-amber-700">
               <Truck className="w-6 h-6" />
             </div>
@@ -97,9 +100,9 @@ export default function AboutPage() {
             <p className="text-xs text-slate-600 leading-relaxed">
               Fast 24-48h dispatch across Malta and Gozo. Free shipping on all orders over €50.
             </p>
-          </div>
+          </ScrollReveal>
 
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-3 shadow-sm">
+          <ScrollReveal index={3} effect="settle" className="p-6 rounded-2xl bg-white border border-slate-200 space-y-3 shadow-sm">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-100 border border-amber-200 text-amber-700">
               <ShieldCheck className="w-6 h-6" />
             </div>
@@ -110,11 +113,11 @@ export default function AboutPage() {
               Used daily by Malta&apos;s leading car detailing studios, coating installers, and paint
               correction specialists.
             </p>
-          </div>
+          </ScrollReveal>
         </div>
 
         {/* Partner Stockists Section */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200 space-y-8 shadow-sm">
+        <ScrollReveal effect="settle" className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200 space-y-8 shadow-sm">
           <div className="max-w-2xl">
             <span className="text-xs font-heading font-black uppercase tracking-widest text-amber-700">
               Local Physical Presence
@@ -168,10 +171,10 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Bottom CTA Card */}
-        <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-amber-100 via-amber-50 to-white border border-amber-200 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
+        <ScrollReveal effect="settle" className="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-amber-100 via-amber-50 to-white border border-amber-200 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
           <div>
             <h3 className="font-heading text-2xl sm:text-3xl font-black uppercase text-slate-900">
               READY TO UPGRADE YOUR DETAILING SETUP?
@@ -195,7 +198,7 @@ export default function AboutPage() {
               Contact Us
             </Link>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </div>
   );

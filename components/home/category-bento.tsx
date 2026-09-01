@@ -72,7 +72,7 @@ const featuredCategories = [
 
 export function CategoryBento() {
   return (
-    <section className="py-20 bg-slate-50 border-b border-slate-200/80">
+    <section id="collections" className="py-20 bg-slate-50 border-b border-slate-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Title */}
         <ScrollReveal className="flex flex-col sm:flex-row sm:items-end justify-between mb-12">

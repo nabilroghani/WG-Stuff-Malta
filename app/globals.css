@@ -74,6 +74,39 @@
     background-size: 24px 24px;
   }
 
+  /* The hero grid opens into a larger dot ring around the cursor. */
+  .interactive-hero-grid {
+    --grid-x: 50%;
+    --grid-y: 50%;
+    --grid-open: 0;
+    opacity: 0.5;
+    background-image: radial-gradient(#CBD5E1 1.2px, transparent 1.2px);
+    background-size: 24px 24px;
+    transition: opacity 0.25s ease;
+  }
+
+  .interactive-hero-grid--active {
+    -webkit-mask-image: radial-gradient(circle 145px at var(--grid-x) var(--grid-y), transparent 0 28%, #000 56%, #000 78%);
+    mask-image: radial-gradient(circle 145px at var(--grid-x) var(--grid-y), transparent 0 28%, #000 56%, #000 78%);
+  }
+
+  .interactive-hero-grid::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background-image: radial-gradient(rgba(245, 158, 11, 0.75) 1.5px, transparent 1.5px);
+    background-size: 38px 38px;
+    background-position: calc(var(--grid-x) - 19px) calc(var(--grid-y) - 19px);
+    -webkit-mask-image: radial-gradient(circle 150px at var(--grid-x) var(--grid-y), transparent 0 25%, #000 45%, transparent 74%);
+    mask-image: radial-gradient(circle 150px at var(--grid-x) var(--grid-y), transparent 0 25%, #000 45%, transparent 74%);
+    transition: opacity 0.2s ease;
+  }
+
+  .interactive-hero-grid--active::after {
+    opacity: 1;
+  }
+
   /* Light glassmorphism */
   .glass-panel {
     background: rgba(255, 255, 255, 0.95);

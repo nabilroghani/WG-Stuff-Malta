@@ -2,6 +2,8 @@ import React from 'react';
 import type { Metadata } from 'next';
 import { Phone, Mail, MapPin, MessageSquare, HelpCircle } from 'lucide-react';
 import { ContactForm } from '@/components/contact/contact-form';
+import { ScrollDrawnCurve } from '@/components/about/scroll-drawn-curve';
+import { ScrollReveal } from '@/components/ui/scroll-reveal';
 
 export const metadata: Metadata = {
   title: 'Contact WG Stuff Malta | Phone, WhatsApp & Locations',
@@ -34,10 +36,11 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="py-12 bg-slate-50 min-h-screen text-slate-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+    <div className="relative overflow-hidden py-12 bg-slate-50 min-h-screen text-slate-900">
+      <ScrollDrawnCurve />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         {/* Header Title */}
-        <div className="max-w-3xl space-y-3">
+        <ScrollReveal effect="settle" className="max-w-3xl space-y-3">
           <span className="text-xs font-heading font-black uppercase tracking-widest text-amber-700">
             Get In Touch With WG Stuff Malta
           </span>
@@ -48,16 +51,16 @@ export default function ContactPage() {
             Have a question about which brush to use on delicate piano black trims, how to dial in
             Sour Shampoo dilution, or tracking your order? Reach out directly.
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* 3 Quick Contact Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {/* Card 1: WhatsApp Direct */}
-          <a
+          <ScrollReveal index={0} effect="settle"><a
             href="https://wa.me/35679080602"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-6 rounded-3xl bg-emerald-50 border border-emerald-300 hover:border-emerald-500 transition-all group space-y-3 shadow-xs hover:shadow-md"
+            className="block h-full p-6 rounded-3xl bg-emerald-50 border border-emerald-300 hover:border-emerald-500 transition-all group space-y-3 shadow-xs hover:shadow-md"
           >
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700 group-hover:scale-105 transition-transform">
               <MessageSquare className="w-6 h-6" />
@@ -70,12 +73,12 @@ export default function ContactPage() {
             <span className="text-xs text-emerald-700 font-bold group-hover:underline inline-block pt-1">
               Start WhatsApp Chat →
             </span>
-          </a>
+          </a></ScrollReveal>
 
           {/* Card 2: Phone */}
-          <a
+          <ScrollReveal index={1} effect="settle"><a
             href="tel:+35679080602"
-            className="p-6 rounded-3xl bg-white border border-slate-200 hover:border-amber-400 transition-all group space-y-3 shadow-xs hover:shadow-md"
+            className="block h-full p-6 rounded-3xl bg-white border border-slate-200 hover:border-amber-400 transition-all group space-y-3 shadow-xs hover:shadow-md"
           >
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-100 text-amber-700 group-hover:scale-105 transition-transform">
               <Phone className="w-6 h-6" />
@@ -88,12 +91,12 @@ export default function ContactPage() {
             <span className="text-xs text-amber-700 font-bold group-hover:underline inline-block pt-1">
               Call Now →
             </span>
-          </a>
+          </a></ScrollReveal>
 
           {/* Card 3: Email */}
-          <a
+          <ScrollReveal index={2} effect="settle"><a
             href="mailto:workstuffmalta@gmail.com"
-            className="p-6 rounded-3xl bg-white border border-slate-200 hover:border-amber-400 transition-all group space-y-3 shadow-xs hover:shadow-md"
+            className="block h-full p-6 rounded-3xl bg-white border border-slate-200 hover:border-amber-400 transition-all group space-y-3 shadow-xs hover:shadow-md"
           >
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-100 text-amber-700 group-hover:scale-105 transition-transform">
               <Mail className="w-6 h-6" />
@@ -106,18 +109,18 @@ export default function ContactPage() {
             <span className="text-xs text-amber-700 font-bold group-hover:underline inline-block pt-1">
               Send Email →
             </span>
-          </a>
+          </a></ScrollReveal>
         </div>
 
         {/* Main Grid: Contact Form + Map & Physical Locations */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           {/* Form Left */}
-          <div className="lg:col-span-7">
+          <ScrollReveal effect="settle" className="lg:col-span-7">
             <ContactForm />
-          </div>
+          </ScrollReveal>
 
           {/* Physical Locations & Map Right */}
-          <div className="lg:col-span-5 space-y-6">
+          <ScrollReveal index={1} effect="settle" className="lg:col-span-5 space-y-6">
             <div className="rounded-3xl bg-white border border-slate-200 p-8 space-y-6 shadow-sm">
               <h3 className="font-heading text-2xl font-black uppercase text-slate-900 tracking-tight">
                 Malta Stockist Locations
@@ -163,11 +166,11 @@ export default function ContactPage() {
                 />
               </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
 
         {/* FAQ Accordion Section */}
-        <div className="rounded-3xl bg-white border border-slate-200 p-8 sm:p-12 space-y-8 shadow-sm">
+        <ScrollReveal effect="settle" className="rounded-3xl bg-white border border-slate-200 p-8 sm:p-12 space-y-8 shadow-sm">
           <div className="max-w-2xl">
             <div className="flex items-center gap-1.5 text-xs font-heading font-black uppercase tracking-widest text-amber-700">
               <HelpCircle className="w-4 h-4" /> Got Questions?
@@ -179,18 +182,20 @@ export default function ContactPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {faqs.map((faq, idx) => (
-              <div
+              <ScrollReveal
                 key={idx}
+                index={idx}
+                effect="settle"
                 className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-2"
               >
                 <h4 className="font-heading text-base font-black uppercase text-slate-900">
                   {faq.q}
                 </h4>
                 <p className="text-xs text-slate-600 leading-relaxed">{faq.a}</p>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </div>
   );
